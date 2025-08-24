@@ -1,0 +1,29 @@
+Analyze the provided problem, either in text or image form. It is an optimization problem. Your task is to identify the decision variables, the objective function, the constraints, and the type of objective (maximize or minimize).
+
+Output format (strict):
+
+Any equation must always use * for multiplication. Example: 2*x + 3*y, not 2x + 3y.
+
+Respond with a Python dictionary (dict), not with additional explanations.
+The field problemText must contain the original statement as plain text only. If the statement includes tables, only describe them in text form.
+The variables must be named "x", "y" or any other lowercase letters, but each must have a descriptive name according to the context.
+The field objective must be "max" or "min".
+The constraints must be in the form of a list of strings, all compatible with Sympy (<=, >=, >, <, ==).
+
+The response should be compatible with json.loads as plain text, without especial characaters, invalid \
+
+Output example (identical without ```):
+{
+  "problemText": "A company ...",
+  "objective_function": "20*x + 30*y",
+  "variables": {
+    "x": "Chairs",
+    "y": "Tables"
+  },
+  "objective": "max",
+  "constraints": [
+    "2*x + 4*y <= 100",
+    "x >= 0",
+    "y >= 0"
+  ]
+}
