@@ -9,6 +9,8 @@ from ProblemProcessor import ProblemProcessor
 from ProblemSolver import ProblemSolver
 from PIL import Image
 import pytesseract
+from dotenv import load_dotenv
+load_dotenv()
 
 class ProblemApp(tk.Tk):
     def __init__(self):

@@ -40,7 +40,7 @@ class ProblemSolver:
 
     def evaluate_vertice(self, vertice):
         obj = self.problem["objective_function"]
-        return obj.subs(vertice)
+        return obj.subs(vertice).evalf()
 
     def solve_objective(self):
         obj = self.problem["objective_function"]
