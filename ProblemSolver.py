@@ -38,6 +38,10 @@ class ProblemSolver:
         
         return vertices
 
+    def evaluate_vertice(self, vertice):
+        obj = self.problem["objective_function"]
+        return obj.subs(vertice)
+
     def solve_objective(self):
         obj = self.problem["objective_function"]
         obj_type = self.problem.get("objective", "max")

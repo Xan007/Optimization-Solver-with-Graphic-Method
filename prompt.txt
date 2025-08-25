@@ -6,9 +6,9 @@ Any equation must always use * for multiplication. Example: 2*x + 3*y, not 2x + 
 
 Respond with a Python dictionary (dict), not with additional explanations.
 The field problemText must contain the original statement as plain text only. If the statement includes tables, only describe them in text form.
-The variables must be named "x", "y" or any other lowercase letters, but each must have a descriptive name according to the context.
+The variables must be named "x", "y" or any other lowercase letters (JUST ONE LETTER), but each must have a descriptive name according to the context.
 The field objective must be "max" or "min".
-The constraints must be in the form of a list of strings, all compatible with Sympy (<=, >=, >, <, ==).
+The constraints must be in the form of a list of strings, all compatible with Sympy (<=, >=, >, <) NEVER == and do not repeat constraints.
 
 The response should be compatible with json.loads as plain text, without especial characaters, invalid \
 
