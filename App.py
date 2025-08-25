@@ -8,7 +8,6 @@ from IAClient import IAClient
 from ProblemProcessor import ProblemProcessor
 from ProblemSolver import ProblemSolver
 from PIL import Image
-import pytesseract
 from dotenv import load_dotenv
 load_dotenv()
 
