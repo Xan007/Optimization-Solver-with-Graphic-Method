@@ -12,6 +12,8 @@ import pytesseract
 from dotenv import load_dotenv
 load_dotenv()
 
+print(os.getenv("GROQAPI"))
+
 class ProblemApp(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -20,6 +22,10 @@ class ProblemApp(tk.Tk):
         self.configure(bg="#f5f5f5")
 
         self.client = IAClient(os.getenv("GROQAPI"))
+
+        with open("prompt.txt", "r", encoding="utf-8") as f:
+                prompt = f.read()
+        self.client.set_system_prompt(prompt)
 
         # --- Frames principales ---
         self.top_frame = ttk.Frame(self)
@@ -58,10 +64,12 @@ class ProblemApp(tk.Tk):
         if file_path:
             # Leer imagen y extraer texto con pytesseract
             try:
-                image = Image.open(file_path)
-                text = pytesseract.image_to_string(image, lang='spa')
-                self.text_input.delete("1.0", tk.END)
-                self.text_input.insert(tk.END, text)
+                self.temp_image_paths = [file_path]
+
+                self.text_input.delete("1.0", tk.END)                
+                self.text_input.insert(tk.END, f"[Imagen cargada: {os.path.basename(file_path)}]\n")
+
+                #self.client.new_message(None, None, image_paths=[file_path])
             except Exception as e:
                 messagebox.showerror("Error", f"No se pudo leer la imagen:\n{str(e)}")
 
@@ -73,9 +81,10 @@ class ProblemApp(tk.Tk):
 
         try:
             # Enviar a IA para procesar
-            with open("prompt.txt", "r", encoding="utf-8") as f:
-                contenido = f.read()
-            raw_problem_text = self.client.new_message(raw_text, contenido)
+            
+            raw_problem_text = self.client.new_message(raw_text, None, self.temp_image_paths, None)
+            print(raw_problem_text)
+            
 
             processor = ProblemProcessor()
             processor.load_from_text(raw_problem_text)
@@ -122,6 +131,9 @@ class ProblemApp(tk.Tk):
 
         except Exception as e:
             messagebox.showerror("Error", f"{type(e).__name__}: {str(e)}")
+        finally:
+            self.client.clear_history()
+            self.temp_image_paths = []
 
 
 if __name__ == "__main__":

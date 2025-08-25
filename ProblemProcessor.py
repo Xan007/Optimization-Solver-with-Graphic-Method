@@ -8,6 +8,7 @@ class ProblemProcessor:
 
     def load_from_text(self, raw_problem_text):
         try:
+            raw_problem_text = raw_problem_text.replace("`", "")
             self.set_raw_problem(json.loads(raw_problem_text))
         except Exception as e:
             print(e)
